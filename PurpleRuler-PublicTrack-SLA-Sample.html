@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SLA 样板（修正版）· Purple Ruler 公立路径</title>
+<style>
+  /* ============== Design System (matches PurpleRuler-PublicTrack.html) ============== */
+  :root {
+    --deep: #0a0a1e;
+    --primary: #2a1a3e;
+    --brand: #6a4a8a;
+    --brand-light: #efe4f6;
+    --gold: #c89640;
+    --gold-light: #fbf6e8;
+    --navy: #1a2a4e;
+    --cream: #fafaf7;
+    --paper: #ffffff;
+    --line: #e0d8e8;
+    --muted: #6a5a7a;
+    --teal: #2a7a8a;
+    --teal-light: #e0f0f2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Segoe UI", sans-serif;
+    color: var(--primary);
+    background: var(--cream);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============== Top Banner ============== */
+  .topnav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,10,30,0.96); backdrop-filter: blur(8px);
+    color: white; padding: 10px 24px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .topnav-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1400px; margin: 0 auto; gap: 24px; flex-wrap: wrap; }
+  .topnav-brand { font-size: 13px; font-weight: 800; letter-spacing: 2px; }
+  .topnav-brand small { display: block; font-size: 9px; font-weight: 500; opacity: .65; letter-spacing: 3px; margin-top: 2px; }
+  .topnav-tag {
+    background: var(--gold); color: #1a1a1a;
+    padding: 4px 10px; border-radius: 3px;
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+  }
+
+  /* ============== Page Sections ============== */
+  .page {
+    max-width: 1200px; margin: 0 auto; padding: 60px 40px;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .page-meta {
+    display: flex; align-items: baseline; gap: 14px;
+    margin-bottom: 28px; padding-bottom: 16px;
+    border-bottom: 2px solid var(--line);
+  }
+  .page-num {
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 12px; color: var(--teal); font-weight: 700; letter-spacing: 2px;
+  }
+  .page-section {
+    font-size: 10px; letter-spacing: 3px; color: var(--teal);
+    background: var(--teal-light); padding: 3px 9px; border-radius: 3px;
+  }
+  .page-h {
+    font-size: 32px; font-weight: 800; color: var(--primary);
+    line-height: 1.2; margin-bottom: 8px; letter-spacing: -.5px;
+  }
+  .page-sub { font-size: 14px; color: var(--muted); font-weight: 400; }
+
+  /* ============== Common Components ============== */
+  .card-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 24px 0; }
+  .card-row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0; }
+  .card { background: var(--cream); border: 1px solid var(--line); padding: 18px 20px; border-radius: 6px; }
+  .card.gold { border-left: 3px solid var(--gold); background: var(--gold-light); }
+  .card.teal { border-left: 3px solid var(--teal); background: var(--teal-light); }
+  .card-title { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .card-content { font-size: 12.5px; line-height: 1.7; }
+  .card-content ul { padding-left: 18px; margin-top: 6px; }
+  .card-content li { margin-bottom: 4px; }
+
+  .pull-quote {
+    background: var(--teal-light); border-left: 4px solid var(--teal);
+    padding: 18px 24px; margin: 24px 0; border-radius: 4px;
+    font-size: 14px; line-height: 1.7; color: var(--primary);
+  }
+  .pull-quote strong { color: var(--teal); }
+
+  .label { font-size: 10px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
+  .h2 { font-size: 18px; font-weight: 700; color: var(--primary); margin: 28px 0 12px 0; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+
+  /* ============== Intro Banner ============== */
+  .sample-banner {
+    background: linear-gradient(135deg, #5a3a1a 0%, #a07020 60%, #c89640 100%);
+    color: white; padding: 24px 28px; border-radius: 8px; margin-bottom: 24px;
+  }
+  .sample-banner-label {
+    display: inline-block; background: rgba(0,0,0,.2); padding: 4px 10px;
+    border-radius: 3px; font-size: 10px; letter-spacing: 2px; margin-bottom: 10px; font-weight: 700;
+  }
+  .sample-banner h2 {
+    font-size: 22px; font-weight: 800; margin-bottom: 8px; letter-spacing: -.3px;
+  }
+  .sample-banner p { font-size: 13px; opacity: .92; line-height: 1.65; }
+  .sample-banner code {
+    background: rgba(0,0,0,.25); padding: 2px 6px; border-radius: 3px;
+    font-family: "SF Mono", Menlo, monospace; font-size: 11px;
+  }
+
+  /* What changed */
+  .changelog {
+    background: var(--cream); border: 1px solid var(--line); border-radius: 6px;
+    padding: 18px 22px; margin: 16px 0;
+  }
+  .changelog h3 {
+    font-size: 14px; color: var(--teal); margin-bottom: 10px; letter-spacing: .5px;
+  }
+  .changelog ol { padding-left: 22px; font-size: 12.5px; line-height: 1.8; }
+  .changelog ol li strong { color: var(--primary); }
+
+  .footer-page {
+    max-width: 1200px; margin: 0 auto; padding: 50px 40px;
+    text-align: center; color: var(--muted); font-size: 11px; letter-spacing: 2px;
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BANNER -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <div class="topnav-brand">PURPLE RULER<br><small>INTERNAL · PUBLIC TRACK · SLA SAMPLE</small></div>
+    <div class="topnav-tag">★ 修正版样板</div>
+  </div>
+</nav>
+
+<!-- INTRO PAGE -->
+<section class="page">
+  <div class="page-meta">
+    <span class="page-num">SLA SAMPLE</span>
+    <span class="page-section">★ 给 BELINDA 的样板 · 可直接替换原 SLA 段</span>
+  </div>
+  <h1 class="page-h">SLA 那一页 · 修正样板</h1>
+  <p class="page-sub">基于 2026-05-14 路线图制作培训会议反馈做的修正版，可直接替换 PurpleRuler-PublicTrack.html 里的 <code style="font-family:'SF Mono',monospace;background:#f0eaf4;padding:2px 6px;border-radius:3px;font-size:13px">&lt;section id="sla"&gt;</code> 整段</p>
+
+  <div class="sample-banner">
+    <div class="sample-banner-label">为什么做这个样板</div>
+    <h2>原版把 SLA 概念用错了</h2>
+    <p>
+      会议里 MJ 讲的 <strong>SLA = Standardized Learning Assessment</strong>（教育学"同年龄段分位水平"评估），目的是让老师跟家长沟通时显专业，给出可量化的"前 5% / 中位 / 后 30%"判断。<br>
+      原 HTML 里把 SLA 解释成了 <strong>Second Language Acquisition</strong>（Krashen 二语习得理论）—— 这是完全不同的概念。<br>
+      下面是修正后的 SLA 整页内容，可整段替换。
+    </p>
+  </div>
+
+  <div class="changelog">
+    <h3>✦ 五大改动一览</h3>
+    <ol>
+      <li><strong>概念全部换掉</strong>：SLA = Standardized Learning Assessment（不是 Second Language Acquisition）</li>
+      <li><strong>三大支柱</strong>改成会议给的<strong>三条评估线索</strong>：标化考试 / 班级排名 + 城市修正 / EF 区域参考</li>
+      <li><strong>5 题诊断脚本全部改成评估"分位"的问题</strong>（不是 CEFR 等级）：KET/PET 等级 · 班级排名 + 城市层级 · 英语竞赛 · 外教课配置 · 国际经历加成</li>
+      <li><strong>判断表横轴重写</strong>：综合表现 → SLA 分位（前 1% / 5% / 15% / 中位 / 后 30% / 后 50%）→ 入读年级 → 推荐课包</li>
+      <li><strong>三个常见误区</strong>改成销售实战常遇到的家长说法："我家孩子英语挺好的" / "我们班第一" / "考过 KET 就行"</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- THE CORRECTED SLA SECTION                       -->
+<!-- ============================================== -->
+<section id="sla" class="page">
+  <div class="page-meta">
+    <span class="page-num">SLA 标准</span>
+    <span class="page-section">★ 同年龄段分位评估 · 销售诊断工具</span>
+  </div>
+  <h1 class="page-h">SLA · Standardized Learning Assessment</h1>
+  <p class="page-sub">同年龄段分位水平评估 + 5 分钟家长沟通诊断脚本</p>
+
+  <div class="pull-quote">
+    <strong>SLA = Standardized Learning Assessment</strong>（标准化学习评估）—— 教育学评估概念，用于判断孩子在同年龄段同学中的<strong>分位水平</strong>（前 5% / 前 10% / 中位 / 后 30% / 后 50%）。英美公立学校系统广泛使用。<br><br>
+    Purple Ruler 公立路径用 SLA 帮销售/教学顾问做两件事：<strong>① 让老师跟家长沟通时显得专业</strong>——给出可量化的分位判断，而不是模糊的"还不错";<strong>② 把分位映射到正确的课时包</strong>——基础/标准/冲刺三档不再凭感觉选。这一页就是 5 分钟从家长答案推导分位、再推导推荐课包的诊断工具。
+  </div>
+
+  <h2 class="h2">三条评估线索 · 销售/顾问必懂</h2>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:12px">家长说"我家孩子英语挺好的"是<strong>没有信息量</strong>的。SLA 评估靠下面三条客观线索拼出分位。</p>
+
+  <div class="card-row-3">
+    <div class="card teal">
+      <div class="label" style="color:var(--teal);font-size:9px">线索 1 · 标准化考试</div>
+      <div class="card-title" style="font-size:13px">KET / PET / FCE 等级</div>
+      <div class="card-content" style="font-size:11.5px">
+        剑桥少儿英语标化体系是国内公认的硬指标。<br><br>
+        <strong>关键不是"过没过"，而是"什么等级过的"</strong>：
+        <ul style="font-size:11px;margin-top:6px">
+          <li><strong>Pass with Distinction</strong>（卓越通过）= 分位前 10%</li>
+          <li><strong>Pass with Merit</strong>（良好通过）= 中上分位</li>
+          <li><strong>Pass</strong>（通过）= 中位</li>
+        </ul>
+        没考过 KET 之前 → 用 YLE Flyers / 雅思少儿 / 学而思测评等级当替代锚点。
+      </div>
+    </div>
+
+    <div class="card teal">
+      <div class="label" style="color:var(--teal);font-size:9px">线索 2 · 班级排名 + 城市修正</div>
+      <div class="card-title" style="font-size:13px">绝对排名 ÷ 城市层级</div>
+      <div class="card-content" style="font-size:11.5px">
+        班级排名是高频信号但<strong>必须按城市层级修正</strong>：
+        <ul style="font-size:11px;margin-top:6px">
+          <li>北京海淀 / 上海徐汇 班级前 3 ≈ 全国前 5%</li>
+          <li>新一线（成都/杭州/武汉）班级前 3 ≈ 全国前 15%</li>
+          <li>二三线市区班级前 3 ≈ 全国前 30%</li>
+          <li>县城/乡镇班级前 3 ≈ 全国中位</li>
+        </ul>
+        <strong>家长最容易高估的就是这一条</strong>——"我们班第一"在郫县下属镇 ≠ 在海淀。
+      </div>
+    </div>
+
+    <div class="card teal">
+      <div class="label" style="color:var(--teal);font-size:9px">线索 3 · 区域参考</div>
+      <div class="card-title" style="font-size:13px">EF 中国英文熟练度地图</div>
+      <div class="card-content" style="font-size:11.5px">
+        <a href="https://www.ef.com/wwen/epi/regions/asia/china/" style="color:var(--teal)">EF Education First</a> 每年发布的中国英文熟练度地图，按城市分级。<br><br>
+        用法：拿家长所在城市的 EF 等级（高 / 中 / 低）做<strong>背景修正</strong>——同样班级排名第 3，在 EF 高熟练度城市（如上海）和低熟练度城市（如某地县城）的全国分位差很大。<br><br>
+        <strong>销售话术</strong>：引用 EF 数据让家长信服"我不是在贬低你孩子，我是在给你一个客观的全国坐标"。
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 题诊断脚本 -->
+  <div style="margin-top:40px;padding-top:32px;border-top:3px solid var(--teal)">
+    <div style="background:linear-gradient(135deg,#1a4a5a 0%,#2a7a8a 60%,#3a8a9a 100%);color:white;padding:22px 28px;border-radius:8px;margin-bottom:22px">
+      <div style="font-size:10px;letter-spacing:3px;opacity:.75;margin-bottom:8px">DIAGNOSTIC TOOL · 5 分钟评估 SLA 分位</div>
+      <div style="font-size:24px;font-weight:800;margin-bottom:6px;letter-spacing:-.3px">家长沟通诊断脚本</div>
+      <div style="font-size:13px;opacity:.92;line-height:1.6">
+        销售/教学顾问在咨询前 5 分钟，<strong style="color:#fbe4a8">不问"孩子英语怎么样"</strong>（家长说不准），而是问下面 5 个具体问题，根据答案拼出 SLA 分位，对应到正确课时包。
+      </div>
+    </div>
+
+    <h2 class="h2">五题诊断脚本 · 销售/顾问必背</h2>
+
+    <div style="background:white;border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:6px;padding:18px 22px;margin:14px 0">
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:8px">
+        <span style="background:var(--teal);color:white;font-family:'SF Mono',monospace;font-size:11px;font-weight:700;padding:3px 9px;border-radius:3px;letter-spacing:1px">Q1</span>
+        <strong style="font-size:14px;color:var(--primary)">"孩子考过 KET / PET / FCE 吗？是 Pass、Merit 还是 Distinction？"</strong>
+      </div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7;margin-left:8px">
+        <strong style="color:var(--teal)">为什么问</strong>：剑桥标化等级是 SLA 评估的最硬锚点。Distinction = 前 10% 分位的客观证据。<br>
+        <strong style="color:var(--teal)">分流</strong>：没考过 → 先用 YLE Flyers / 学而思测评替代 · KET Pass → 中位 · KET Distinction / PET Pass → 中上 · PET Distinction / FCE Pass → 前 15% · FCE Distinction → 前 5%
+      </div>
+    </div>
+
+    <div style="background:white;border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:6px;padding:18px 22px;margin:14px 0">
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:8px">
+        <span style="background:var(--teal);color:white;font-family:'SF Mono',monospace;font-size:11px;font-weight:700;padding:3px 9px;border-radius:3px;letter-spacing:1px">Q2</span>
+        <strong style="font-size:14px;color:var(--primary)">"孩子在班里英语排第几？学校在哪个城市的什么区？"</strong>
+      </div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7;margin-left:8px">
+        <strong style="color:var(--teal)">为什么问</strong>：班级排名是高频信号但必须做<strong>城市层级修正</strong>——海淀班级第 3 和县城班级第 3 不是一回事。<br>
+        <strong style="color:var(--teal)">分流</strong>：一线核心区（海淀/徐汇/天河）前 3 → 前 5% · 新一线市区前 3 → 前 15% · 二三线前 3 → 前 30% · 县城/乡镇前 3 → 中位
+      </div>
+    </div>
+
+    <div style="background:white;border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:6px;padding:18px 22px;margin:14px 0">
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:8px">
+        <span style="background:var(--teal);color:white;font-family:'SF Mono',monospace;font-size:11px;font-weight:700;padding:3px 9px;border-radius:3px;letter-spacing:1px">Q3</span>
+        <strong style="font-size:14px;color:var(--primary)">"孩子参加过外研社 / 希望之星 / 21 世纪杯这类英语竞赛吗？最高拿过什么奖？"</strong>
+      </div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7;margin-left:8px">
+        <strong style="color:var(--teal)">为什么问</strong>：竞赛获奖能直接证明分位。家长不一定主动说，要追问。<br>
+        <strong style="color:var(--teal)">分流</strong>：没参加过 → 中性信号 · 区级奖 → 前 30% · 市级奖 → 前 15% · 省级 / 国家级奖 → 前 5%
+      </div>
+    </div>
+
+    <div style="background:white;border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:6px;padding:18px 22px;margin:14px 0">
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:8px">
+        <span style="background:var(--teal);color:white;font-family:'SF Mono',monospace;font-size:11px;font-weight:700;padding:3px 9px;border-radius:3px;letter-spacing:1px">Q4</span>
+        <strong style="font-size:14px;color:var(--primary)">"孩子学校有外教课吗？是英美母语外教还是其它国家的？每周几节？"</strong>
+      </div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7;margin-left:8px">
+        <strong style="color:var(--teal)">为什么问</strong>：评估孩子<strong>累计真实英语输入小时数</strong>——SLA 分位高的孩子背后通常有持续的高质量输入。<br>
+        <strong style="color:var(--teal)">分流</strong>：无外教课 → 输入弱 · 非英美外教（菲/印）→ 中等 · 英美外教 1-2 节/周 → 中上 · 英美外教 3+ 节/周 → 前 15%
+      </div>
+    </div>
+
+    <div style="border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:6px;padding:18px 22px;margin:14px 0;background:var(--gold-light)">
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:8px">
+        <span style="background:var(--gold);color:white;font-family:'SF Mono',monospace;font-size:11px;font-weight:700;padding:3px 9px;border-radius:3px;letter-spacing:1px">Q5</span>
+        <strong style="font-size:14px;color:var(--primary)">"孩子参加过国际课程 / 英美夏校 / 海外研学吗？或者家庭有海外背景吗？"</strong>
+      </div>
+      <div style="font-size:12px;color:#5a3a1a;line-height:1.7;margin-left:8px">
+        <strong style="color:#8a5a1a">为什么问</strong>：拿到分位的<strong>额外加成因子</strong>——有这些经历的孩子通常分位被低估。也判断家庭对国际化路径的接受度（影响课包升级空间）。<br>
+        <strong style="color:#8a5a1a">分流</strong>：都没有 → 标准分位 · 有夏校/研学 → 分位 +1 档（如中位 → 中上）· 国际课程在读 → 直接进入冲刺包 · 父母英美留学背景 → 家庭决策窗口大，可推荐高客单
+      </div>
+    </div>
+
+    <h2 class="h2">综合判断表 · 五题答案 → SLA 分位 → 推荐课时包</h2>
+
+    <table style="width:100%;border-collapse:collapse;margin:12px 0;font-size:11.5px">
+      <thead>
+        <tr>
+          <th style="background:var(--teal);color:white;padding:10px;text-align:left;border:1px solid var(--teal);font-weight:700">综合表现</th>
+          <th style="background:var(--teal);color:white;padding:10px;text-align:center;border:1px solid var(--teal);font-weight:700">SLA 分位</th>
+          <th style="background:var(--teal);color:white;padding:10px;text-align:center;border:1px solid var(--teal);font-weight:700">推荐入读年级</th>
+          <th style="background:var(--gold);color:white;padding:10px;text-align:center;border:1px solid var(--gold);font-weight:700">推荐课时包</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:9px 10px;border:1px solid var(--line);background:#f8f8f8;font-weight:600">无标化 / 无外教 / 县乡镇班级中段</td>
+          <td style="padding:9px 10px;border:1px solid var(--line);text-align:center;font-weight:700;color:#5a7a8a">后 50%</td>
+          <td style="padding:9px 10px;border:1px solid var(--line);text-align:center;font-weight:600">GK-G2 启蒙线</td>
+          <td style="padding:9px 10px;border:1px solid var(--line);text-align:center;background:#f8f8f8;font-weight:700;color:var(--teal)">基础 60 节 / 标准 90 节</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 10px;border:1px solid var(--line);background:#f8f8f8;font-weight:600">YLE 通过 / 二三线市区班级前 5</td>
+          <td style="padding:9px 10px;border:1px solid var(--line);text-align:center;font-weight:700;color:#5a7a8a">后 30%</td>
+          <td style="padding:9px 10px;border:1px solid var(--line);text-align:center;font-weight:600">G1-G3 主线</td>
+          <td style="padding:9px 10px;border:1px solid var(--line);text-align:center;background:#f8f8f8;font-weight:700;color:var(--teal)">标准 90 节</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 10px;border:1px solid var(--line);background:#f8f8f8;font-weight:600">KET Pass / 新一线市区班级前 3 / 区级竞赛奖</td>
+          <td style="padding:9px 10px;border:1px solid var(--line);text-align:center;font-weight:700;color:#3a6a7a">中位</td>
+          <td style="padding:9px 10px;border:1px solid var(--line);text-align:center;font-weight:600">G3-G6 主线</td>
+          <td style="padding:9px 10px;border:1px solid var(--line);text-align:center;background:#f8f8f8;font-weight:700;color:var(--teal)">标准 90 节 + 选修</td>
+        </tr>
+        <tr style="background:var(--teal-light)">
+          <td style="padding:9px 10px;border:1px solid var(--line);font-weight:700">KET Distinction / PET Pass / 一线核心区前 5 / 市级竞赛奖</td>
+          <td style="padding:9px 10px;border:1px solid var(--line);text-align:center;font-weight:700;color:var(--teal)">前 15%</td>
+          <td style="padding:9px 10px;border:1px solid var(--line);text-align:center;font-weight:700">G6-G9 雅思预备</td>
+          <td style="padding:9px 10px;border:1px solid var(--line);text-align:center;background:var(--gold-light);font-weight:700;color:var(--gold)">标准 90 节 / 冲刺 120 节</td>
+        </tr>
+        <tr style="background:var(--teal-light)">
+          <td style="padding:9px 10px;border:1px solid var(--line);font-weight:700">PET Distinction / FCE Pass / 一线核心区前 3 / 省级奖 / 英美外教 3+ 节</td>
+          <td style="padding:9px 10px;border:1px solid var(--line);text-align:center;font-weight:700;color:var(--teal)">前 5%</td>
+          <td style="padding:9px 10px;border:1px solid var(--line);text-align:center;font-weight:700">G9-G12 雅思冲刺</td>
+          <td style="padding:9px 10px;border:1px solid var(--line);text-align:center;background:var(--gold-light);font-weight:700;color:var(--gold)">冲刺 120 节</td>
+        </tr>
+        <tr style="background:var(--gold-light)">
+          <td style="padding:9px 10px;border:1px solid var(--line);font-weight:700">FCE Distinction / IELTS 6.5+ / 国际课程在读</td>
+          <td style="padding:9px 10px;border:1px solid var(--line);text-align:center;font-weight:700;color:var(--gold)">前 1%</td>
+          <td style="padding:9px 10px;border:1px solid var(--line);text-align:center;font-weight:700">G12 顶配</td>
+          <td style="padding:9px 10px;border:1px solid var(--line);text-align:center;font-weight:700;color:var(--gold)">冲刺 120 节 + 公开课</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 class="h2">SLA 沟通的三个常见误区 · 销售必懂</h2>
+    <div class="card-row-3">
+      <div class="card teal">
+        <div class="label" style="color:var(--teal)">误区 1</div>
+        <div class="card-title">家长说"我家孩子英语挺好的"</div>
+        <div class="card-content">
+          这是<strong>零信息量</strong>的回答，不要顺着接。<br>
+          <strong>销售回应</strong>：用 SLA 框架反问——"挺好"在同年龄段里能到前 30% 还是前 5%？我们用三条线索（标化等级、班级排名、外教时长）来给出客观分位。
+        </div>
+      </div>
+      <div class="card teal">
+        <div class="label" style="color:var(--teal)">误区 2</div>
+        <div class="card-title">"我们班第一名"= 全国前列</div>
+        <div class="card-content">
+          班级排名<strong>必须乘以城市层级修正系数</strong>。<br>
+          <strong>销售回应</strong>：引用 EF 中国英文熟练度地图——"在 X 城市 X 区，班级第 1 大约对应全国前 X%。这是一个不带情绪的客观坐标。"
+        </div>
+      </div>
+      <div class="card teal">
+        <div class="label" style="color:var(--teal)">误区 3</div>
+        <div class="card-title">"考过 KET 就行了"</div>
+        <div class="card-content">
+          <strong>关键不是过没过，而是什么等级过的</strong>。<br>
+          <strong>销售回应</strong>：Pass / Merit / Distinction 对应的全国分位差距非常大——同样"考过 PET"，Distinction 是前 10%，Pass 只是中位偏上。
+        </div>
+      </div>
+    </div>
+
+    <div class="pull-quote" style="margin-top:24px;background:var(--gold-light);border-color:var(--gold)">
+      <strong style="color:#8a5a1a">销售必懂的三句话</strong>：<br>
+      ① <strong>"'孩子英语好'是没有信息量的——SLA 给我们一个客观分位"</strong>——把家长拉回到框架。<br>
+      ② <strong>"5 个问题告诉我您孩子在同龄人中的分位"</strong>——立专业可信度。<br>
+      ③ <strong>"分位决定课包，不是凭感觉"</strong>——把"贵不贵"转移到"对不对症"。
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO APPLY -->
+<section class="page">
+  <div class="page-meta">
+    <span class="page-num">怎么用</span>
+    <span class="page-section">应用步骤</span>
+  </div>
+  <h1 class="page-h">怎么把这个样板用到你的 HTML 里</h1>
+  <p class="page-sub">三步替换原 SLA 段，剩余其它修改按 punch list 推进</p>
+
+  <ol style="font-size:13.5px;line-height:1.9;margin:20px 0 24px 22px;color:var(--primary)">
+    <li>打开 <code style="font-family:'SF Mono',monospace;background:#f0eaf4;padding:2px 6px;border-radius:3px">PurpleRuler-PublicTrack.html</code></li>
+    <li>找到 <code style="font-family:'SF Mono',monospace;background:#f0eaf4;padding:2px 6px;border-radius:3px">&lt;section id="sla" class="page"&gt;</code> 一直到对应的 <code style="font-family:'SF Mono',monospace;background:#f0eaf4;padding:2px 6px;border-radius:3px">&lt;/section&gt;</code></li>
+    <li>用本页"修正 SLA 段"整段替换（CSS 设计系统已对齐你的原 HTML，颜色 / 字号 / 卡片样式直接复用，不需要改样式）</li>
+  </ol>
+
+  <div class="pull-quote" style="background:var(--brand-light);border-color:var(--brand)">
+    <strong style="color:var(--brand)">剩余还要改的</strong>（按 punch list 优先级）：<br>
+    1. 加"早学英文 ROI 性价比叙事"那一页（5 维度：时间/钱/精力/亲子关系/情绪价值）<br>
+    2. 加"破局思维"框架到路径核心定位<br>
+    3. 教材链跟 MJ 核对（Reach China 是否还在）<br>
+    4. Stage Band 命名调整（CAPSTONE → EXAM MASTERY）<br>
+    5. 加竞品对比锚点（新东方 / 学而思 / VIPKid）
+  </div>
+
+  <p style="font-size:12px;color:var(--muted);margin-top:24px;font-style:italic;text-align:center">
+    需要 ROI 那页或其它部分的样板，可以让 MJ 再发给我。
+  </p>
+</section>
+
+<div class="footer-page">
+  — PURPLE RULER · INTERNAL · SLA SAMPLE · 2026-05 —
+</div>
+
+</body>
+</html>
