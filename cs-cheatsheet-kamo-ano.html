@@ -62,17 +62,19 @@
       <div class="step" style="margin-top:10px"><b>Windows</b> (PowerShell — prompt shows <code>PS C:\</code>)</div>
       <span class="cmd">irm https://claude.ai/install.ps1 | iex</span>
       <div class="step" style="margin-top:8px">Windows: also install <b>Git for Windows</b> (git-scm.com). Then run <code>claude</code> &amp; log in via browser.</div>
+      <div class="step">✅ Verify in a <b>fresh</b> terminal: <code>claude --version</code> → version number = success. Health check: <code>claude doctor</code>.</div>
       <div class="step">💳 Needs a paid Claude plan — <b>message MJ first</b>, just create the claude.ai account with your work email.</div>
     </div>
 
     <div class="card">
       <h2><span class="num">2</span> Connect Lark</h2>
       <div class="step"><b>Mac</b></div>
-      <span class="cmd">brew install node<br>npm install -g @larksuite/lark-cli</span>
-      <div class="step" style="margin-top:8px"><b>Windows</b>: install Node.js LTS (nodejs.org), then same <code>npm install</code> in a fresh PowerShell.</div>
-      <div class="step"><b>Authorise</b> with your PR Lark account:</div>
-      <span class="cmd">lark-cli auth login --domain all</span>
-      <div class="step" style="margin-top:8px">Then tell Claude: <i>"Install the lark skills + the cs-helper skill (repo link from MJ)."</i></div>
+      <span class="cmd">brew install node<br>npx @larksuite/cli@latest install</span>
+      <div class="step" style="margin-top:8px"><b>Windows</b>: install Node.js LTS (nodejs.org), then <code>npx @larksuite/cli@latest install</code> in a fresh PowerShell.</div>
+      <div class="step"><b>Configure &amp; authorise</b> (minimal recommended permissions — grant more later only when a task asks):</div>
+      <span class="cmd">lark-cli config init<br>lark-cli auth login --recommend<br>lark-cli auth status</span>
+      <div class="step" style="margin-top:8px">✅ <code>lark-cli auth status</code> shows you logged in + scopes = setup done.</div>
+      <div class="step">Then tell Claude: <i>"Read the CS Helper playbook doc (link in card 8) and keep it as your ticket reference."</i></div>
     </div>
 
     <div class="card">
